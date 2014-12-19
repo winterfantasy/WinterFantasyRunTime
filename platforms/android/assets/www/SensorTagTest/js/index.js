@@ -162,12 +162,13 @@ var app = {
 			enableChar.write("Hex","01",function(){
 				frequencyChar.write("Hex","0a",function(){
 					beginNotifyChar.subscribe(function(data){
-						var x = parseInt(data.value.getHexString().substr(0,2),16) / 64;
-						var y = parseInt(data.value.getHexString().substr(2,2),16) / 64;
-						var z = parseInt(data.value.getHexString().substr(4,2),16) / 64;
+						var x = app.changeTog(data.value.value.slice(0,1));
+						var y = app.changeTog(data.value.value.slice(1,2));
+						var z = app.changeTog(data.value.value.slice(2,3));
 						document.getElementById('x').innerHTML = x;
 						document.getElementById('y').innerHTML = y;
 						document.getElementById('z').innerHTML = -z;
+						document.getElementById('raw').innerHTML = data.value.getHexString();
 					});
 				},function(){
 					alert("write to enable char error");
@@ -177,6 +178,11 @@ var app = {
 			});
 			
 		},function(){alert("read SensorTag ATT table error!");});
+	},
+	
+	changeTog : function(data){
+		var raw = new Int8Array(data);
+		return raw[0]/64;
 	},
 	
 	goBackHome : function(){
