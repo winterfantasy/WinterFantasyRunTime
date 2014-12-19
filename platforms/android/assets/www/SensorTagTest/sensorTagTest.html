@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+		<title></title>
+		<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+		<script src="js/jquery-1.7.1.min.js"></script>
+		<script src="js/jquery.mobile.min.js"></script>
+		<script src="cordova.js"></script>
+		<script src="js/index.js"></script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<div data-role='header' data-id="PersistentHeader" data-position="fixed">
+				<h1>SensorTagTest</h1>
+				<a id="home" onclick="app.goBackHome()" data-role="button">Home</a>
+		</div>
+		<div data-role='content'>
+			<div id="user_cont">
+				<h1><div id="deviceName"></h1>	
+				<b>Address: </b><div id = "deviceAddress"></div></br>
+			 	<div id="aaa" >
+					<a id="accelerometer" href="javascript:void(0)" onclick="app.accelerometerTest()" data-role="button" style="clear:both; text-align:center;">Accelerometer Test</a>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(function(){
+				app.deviceViewInit();
+			});
+		</script>
+	</body>
+</html>

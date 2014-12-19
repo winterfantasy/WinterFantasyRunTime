@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html manifest="offline.manifest">
+	<head>
+		<meta charset="utf-8">
+		
+		<title></title>
+		<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+		<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/jquery.mobile.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<style>  
+    		div.ui-slider-switch { width: 9em }  
+		</style> 
+	</head>
+	<body>
+		<div data-role='page' id="content_page">
+			<div data-role='header' data-id="PersistentHeader" data-position="fixed">
+				<h1>AccelerometerTest</h1>   
+			</div>
+			<div data-role='content'>
+				<p style="color: black;">x: <span id="x">0</span></p>
+			    <p style="color: black;">y: <span id="y">0</span></p>
+			    <p style="color: black;">z: <span id="z">0</span></p>
+			</div>
+		</div>
+		<script>
+			$(function(){
+				alert("cccc");
+				app.subscribeAccelerometer();
+			});
+		</script>
+	</body>
+</html>

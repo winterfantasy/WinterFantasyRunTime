@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html manifest="offline.manifest">
+	<head>
+		<meta charset="utf-8">
+		
+		<title></title>
+		<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+		<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/jquery.mobile.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script>
+			$(function(){
+				app.initialize();
+			});
+			
+		</script>
+		
+		<style>  
+    		div.ui-slider-switch { width: 9em }  
+		</style> 
+	</head>
+	<body>
+		<div data-role='page' id="content_page">
+			<div data-role='header' data-id="PersistentHeader" data-position="fixed">
+				<h1>SensorTagTest</h1>
+				<div data-role="fieldcontain">  
+            		<select name="scan" id="scanOnOff" data-role="slider" >  
+                		<option value="0" selected="selected">Start Scan</option>  
+                		<option value="1">Scanning...</option>  
+            		</select>
+        		</div>      
+			</div>
+			<div data-role='content'>
+				<div id="user_cont" style="clear:both;margin-bottom:10px;">
+					<ul data-role='listview' id="user_view">
+
+					</ul>
+					<ul data-role='listview' id="list_model">
+						<li id="li_tpl" style="display:none">
+							<a href="javascript:void(0)" onclick="app.next_page('aaaa','bbbb','cccc')">
+								<p><h1 dbField='deviceName'>Mokai</h1></p>
+								<p>Address: <span dbField='deviceAddress'>902897712-1292716-129128</span></p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
