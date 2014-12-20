@@ -148,7 +148,7 @@ var app = {
 	},
 	
 	accelerometerTest: function(){
-		$.mobile.changePage("accelerometerTest.html","slideup");
+		app.showLoader("Loading...");
 		this.subscribeAccelerometer();
 	},
 	
@@ -161,6 +161,8 @@ var app = {
 			
 			enableChar.write("Hex","01",function(){
 				frequencyChar.write("Hex","0a",function(){
+					$.mobile.changePage("accelerometerTest.html","slideup");
+					//app.hideLoader();
 					beginNotifyChar.subscribe(function(data){
 						var x = app.changeTog(data.value.value.slice(0,1));
 						var y = app.changeTog(data.value.value.slice(1,2));
@@ -196,7 +198,7 @@ var app = {
 			text: message, 
 			textVisible: true, 
 			theme: 'a',        
-			textonly: true,   
+			textonly: false,   
 			html: ""           
 		});
 	},
