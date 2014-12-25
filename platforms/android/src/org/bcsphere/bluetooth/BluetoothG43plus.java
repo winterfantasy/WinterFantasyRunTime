@@ -17,6 +17,7 @@
 package org.bcsphere.bluetooth;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -420,6 +421,12 @@ public class BluetoothG43plus implements IBluetooth{
 		public void onCharacteristicChanged(BluetoothGatt gatt,
 				BluetoothGattCharacteristic characteristic) {
 			Log.i(TAG, "onCharacteristicChanged");
+			/*Date d = new Date();
+			  long longtime = d.getTime();
+			  System.out.println(longtime);
+			  String time = d.toLocaleString();
+			        System.out.println(time);*/
+			
 			super.onCharacteristicChanged(gatt, characteristic);
 			setNotificationManage(gatt, characteristic);
 		}

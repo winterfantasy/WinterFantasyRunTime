@@ -160,7 +160,7 @@ var app = {
 			var frequencyChar = sensortag.services[4].characteristics[2];
 			
 			enableChar.write("Hex","01",function(){
-				frequencyChar.write("Hex","0a",function(){
+				frequencyChar.write("Hex","03",function(){
 					$.mobile.changePage("accelerometerTest.html","slideup");
 					//app.hideLoader();
 					beginNotifyChar.subscribe(function(data){
