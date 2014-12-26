@@ -89,11 +89,14 @@ var app = {
 	stopSampling : function(){
 		$("#startSampling").show();
 		$("#stopSampling").hide();
+		$("#showThisData").show();
+		$("#saveData").show();
+		$("#deleteLastOne").show();
 		start = false;
 		app.data.stopTime = new Date().getTime();
 	},
 	
-	showData : function(){
+	showThisData : function(){
 		app.stopSampling();
 		//alert(JSON.stringify(app.data));
 		$.mobile.changePage("showData.html","slideup");
@@ -101,7 +104,11 @@ var app = {
 	
 	deleteLastOne : function(){
 		app.initData();
-		alert("deleted!");
+	},
+	
+	clearDataAndBack : function(){
+		window.history.go(-1);
+		app.initData();
 	},
 	
 	initData : function(){
@@ -115,6 +122,9 @@ var app = {
 		app.data.y = [];
 		app.data.z = [];
 		app.data.name = $('#samplingName').val();
+		$("#showThisData").hide();
+		$("#saveData").hide();
+		$("#deleteLastOne").hide();
 	},
 	
 	saveData : function(){
