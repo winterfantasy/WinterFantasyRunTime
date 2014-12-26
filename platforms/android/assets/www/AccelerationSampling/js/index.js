@@ -23,11 +23,13 @@ var app = {
     // Application Constructor
     initialize: function() {
         app.bindCordovaEvents();
+		var defaultName = new Date().getTime();
+		$('#samplingName').val(defaultName);
+		app.initData();
     },
     
     bindCordovaEvents: function() {
 		document.addEventListener('deviceready',app.onDeviceReady,false);
-		app.initData();
     },
     
 	onDeviceReady : function(){
@@ -55,8 +57,8 @@ var app = {
 				
 				/*if(D < 1){
 					first = true;
-				}*/
-			/*}
+				}
+			}
 			prex = evt.x;
 			prey = evt.y;
 			prez = evt.z;*/
@@ -73,6 +75,10 @@ var app = {
 	},
 	
 	startSampling : function(){
+		if($('#samplingName').val() == ""){
+			alert("please enter the sampling name");
+			return;
+		}
 		$("#startSampling").hide();
 		$("#stopSampling").show();
 		start = true;
@@ -94,13 +100,28 @@ var app = {
 	},
 	
 	deleteLastOne : function(){
+		app.initData();
 		alert("deleted!");
 	},
 	
 	initData : function(){
+		if($('#samplingName').val() == ""){
+			alert("please enter the sampling name");
+			return;
+		}
+		
 		app.data = {};
 		app.data.x = [];
 		app.data.y = [];
 		app.data.z = [];
-	}
+		app.data.name = $('#samplingName').val();
+	},
+	
+	saveData : function(){
+		$.post("http://192.168.3.1:8000/saveSample.php",JSON.stringify(app.data),function(result){
+			if(result == "success"){
+				alert("data saved successfully");
+			}
+		});
+	},
 };

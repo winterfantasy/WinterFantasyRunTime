@@ -25,7 +25,7 @@
 					},
 
 					title : {
-						text : 'AAPL Stock Price'
+						text : new Date(parseInt(app.data.startTime)).toLocaleString()
 					},
 
 					series : [{
@@ -66,5 +66,6 @@
 			});
 		</script>
 		<div id="container" style="height: 400px"></div>
+		<a id="saveData" href="javascript:void(0)" onclick="app.saveData()" data-role="button">Save Data</a>
 	</body>
 </html>
