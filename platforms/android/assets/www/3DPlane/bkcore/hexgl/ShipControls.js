@@ -432,11 +432,11 @@ bkcore.hexgl.ShipControls.prototype.terminate = function()
 
 bkcore.hexgl.ShipControls.prototype.destroy = function()
 {
-	this.active = false;
+	/*this.active = false;
 	this.destroyed = true;
 	this.collision.front = false;
 	this.collision.left = false;
-	this.collision.right = false;
+	this.collision.right = false;*/
 }
 
 bkcore.hexgl.ShipControls.prototype.fall = function()
@@ -509,10 +509,10 @@ bkcore.hexgl.ShipControls.prototype.update = function(dt)
 			//angularAmount += accz/5 * this.angularSpeed * dt;
 			//rollAmount -= accz/1.5 * this.rollAngle;
 			
-			if(accz > 1){
+			if(accz > 0.5){
 				angularAmount += this.angularSpeed * dt;
 				rollAmount -= this.rollAngle;
-			}else if(accz < -1){
+			}else if(accz < -0.5){
 				angularAmount -= this.angularSpeed * dt;
 				rollAmount += this.rollAngle;
 			}
