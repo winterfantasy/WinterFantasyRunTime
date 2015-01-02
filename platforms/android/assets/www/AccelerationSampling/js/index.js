@@ -18,6 +18,11 @@ var prex = 0;
 var prey = 0;
 var prez = 0;
 
+function changeTog(data) {
+    var raw = new Int8Array(data);
+    return raw[0] / 64;
+}
+
 var app = {
 	data : {},
     // Application Constructor
@@ -29,7 +34,75 @@ var app = {
     },
     
     bindCordovaEvents: function() {
-		document.addEventListener('deviceready',app.onDeviceReady,false);
+		//document.addEventListener('deviceready',app.onDeviceReady,false);
+		document.addEventListener('bcready', function () {
+            BC.bluetooth.addEventListener("bluetoothstatechange", function () {
+                if (BC.bluetooth.isopen) {
+                    alert("your bluetooth has been opened successfully.");
+                } else {
+                    alert("bluetooth is closed!");
+                    BC.Bluetooth.OpenBluetooth(function () { alert("opened!"); });
+                }
+            });
+            BC.bluetooth.addEventListener("newdevice", function (arg) {
+                var newDevice = arg.target;
+                newDevice.addEventListener("devicedisconnected", function (arg) {
+                    alert("SensorTag:" + arg.deviceAddress + " is disconnect,Click to reconnect.");
+                    newDevice.connect(function (arg) {
+                        alert("SensorTag:" + arg.deviceAddress + " is reconnected successfully.");
+                    }, function () {
+                            newDevice.dispatchEvent("devicedisconnected");
+                    });
+                });
+                if (newDevice.deviceAddress == "BC:6A:29:AB:7C:DE") {
+                    sensorTag = newDevice;
+                    BC.Bluetooth.StopScan();
+                    newDevice.connect(function () {
+                        sensorTag.prepare(function () {
+                            var beginNotifyChar = sensorTag.services[4].characteristics[0];
+                            var enableChar = sensorTag.services[4].characteristics[1];
+                            var frequencyChar = sensorTag.services[4].characteristics[2];
+
+                            enableChar.write("Hex", "01", function () {
+                                frequencyChar.write("Hex", "03", function () {
+                                    beginNotifyChar.subscribe(function (data) {
+                                    	if(start){
+                                    	    var x = changeTog(data.value.value.slice(0, 1))*9.81;
+	                                        var y = changeTog(data.value.value.slice(1, 2))*9.81;
+	                                        var z = changeTog(data.value.value.slice(2, 3))*9.81;
+	                                        
+	                                        document.getElementById('x').innerHTML = x;
+											document.getElementById('y').innerHTML = y;
+											document.getElementById('z').innerHTML = z;	
+	
+											var timestamp = new Date().getTime();
+											app.data.x.push([timestamp,x]);
+											app.data.y.push([timestamp,y]);
+											app.data.z.push([timestamp,z]);
+                                    	}
+                                    });
+                                }, function () {
+                                        alert("write to enable char error");
+                                });
+                            }, function () {
+                                    alert("write to enable char error");
+                            });
+                        }, function () {
+                                alert("read SensorTag ATT table error!");
+                            });
+                    }, function () {
+                            alert("connect the SensorTag BC:6A:29:AB:7C:DE error");
+                    });
+                }
+            });
+            if (!BC.bluetooth.isopen) {
+                BC.Bluetooth.OpenBluetooth(function () {
+                    BC.Bluetooth.StartScan("LE");
+                });
+            } else {
+                BC.Bluetooth.StartScan("LE");
+            }
+        }, false);
     },
     
 	onDeviceReady : function(){

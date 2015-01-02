@@ -20,6 +20,8 @@
 package org.winterfantasy.winterfantasyruntime;
 
 import android.os.Bundle;
+import android.view.WindowManager;
+
 import org.apache.cordova.*;
 
 public class WinterFantasyRunTime extends CordovaActivity 
@@ -29,6 +31,7 @@ public class WinterFantasyRunTime extends CordovaActivity
     {
         super.onCreate(savedInstanceState);
         super.init();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         // Set by <content src="index.html" /> in config.xml
         super.loadUrl(Config.getStartUrl());
         //super.loadUrl("file:///android_asset/www/index.html");

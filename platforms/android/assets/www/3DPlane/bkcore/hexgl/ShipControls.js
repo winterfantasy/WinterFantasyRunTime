@@ -131,7 +131,7 @@ bkcore.hexgl.ShipControls = function(ctx)
 	this.shieldTiming = 0;
 	this.shieldDamage = 0.25;
 	this.driftLerp = 0.35;
-	this.angularLerp = 0.35;
+	this.angularLerp = 1.35;
 
 	this.movement = new THREE.Vector3(0,0,0);
 	this.rotation = new THREE.Vector3(0,0,0);
@@ -500,14 +500,22 @@ bkcore.hexgl.ShipControls.prototype.update = function(dt)
 		}
 		else if(startAcc)
 		{
-			if(accx > 0){
+			if(accx > 1.2){
 				this.key.forward = true;
 			}else{
 				this.key.forward = false;
 			}
 			//this.speed += accx/30;
-			angularAmount += accz/5 * this.angularSpeed * dt;
-			rollAmount -= accz/1.5 * this.rollAngle;
+			//angularAmount += accz/5 * this.angularSpeed * dt;
+			//rollAmount -= accz/1.5 * this.rollAngle;
+			
+			if(accz > 1){
+				angularAmount += this.angularSpeed * dt;
+				rollAmount -= this.rollAngle;
+			}else if(accz < -1){
+				angularAmount -= this.angularSpeed * dt;
+				rollAmount += this.rollAngle;
+			}
 		}
 		else
 		{
