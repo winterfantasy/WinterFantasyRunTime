@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+		<title></title>
+		<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+		<script src="js/jquery-1.7.1.min.js"></script>
+		<script src="js/jquery.mobile.min.js"></script>
+		<script src="js/highcharts.js"></script>
+		<script src="js/exporting.js"></script>
+		<script src="js/highcharts-3d.js"></script>
+		<script src="cordova.js"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/index.js"></script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<div data-role='header' data-id="PersistentHeader" data-position="fixed">
+				<h1>Trajectory</h1>  
+		</div>
+		<div data-role='content'>
+				<p style="color: black;">x: <span id="x">0</span></p>
+			    <p style="color: black;">y: <span id="y">0</span></p>
+			    <p style="color: black;">z: <span id="z">0</span></p>
+				
+			<div id="user_cont">
+			<h2>Trajectory</h2>
+				<h1><div id="operate_char_deviceName"></div></h1>	
+				<label for="textarea">Sampling Name:</label><textarea cols="40" rows="1" name="textarea" id="samplingName"></textarea>
+			 	<a id="startSampling" href="javascript:void(0)" onclick="app.startSampling()" data-role="button">Start Sampling</a>
+			 	<a id="stopSampling" href="javascript:void(0)" onclick="app.stopSampling()" data-role="button" style="display:none">Stop Sampling</a>
+				<br/><br/>
+				<a id="showThisData" href="javascript:void(0)" onclick="app.showThisData()" data-role="button" style="display:none">Show This Data</a>
+				<a id="saveData" href="javascript:void(0)" onclick="app.saveData()" data-role="button" style="display:none">Save This Data</a>
+				<a id="deleteLastOne" href="javascript:void(0)" onclick="app.deleteLastOne()" data-role="button">Clear This Data</a>
+			</div>
+		</div>
+	
+		<script>
+			$(function(){
+				$.ajaxSetup({"isLocal":true});
+				app.initialize();
+			});
+		</script>
+	</body>
+</html>
