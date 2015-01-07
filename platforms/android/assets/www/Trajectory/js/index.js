@@ -320,7 +320,7 @@ var app = {
 		_.each(speed,function(s){
 			adjust_speed.push(s - last_pos);
 		});
-		return app.range_integrate(adjust_speed);
+		return app.range_integrate(speed);
 	},
 	
 	recover : function(){
