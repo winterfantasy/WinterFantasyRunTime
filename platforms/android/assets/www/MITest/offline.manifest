@@ -1,0 +1,15 @@
+CACHE MANIFEST
+
+js/jquery-1.7.1.min.js
+js/jquery.mobile.min.js
+http://115.29.149.19:3000/framework/org.underscorejs.underscore/underscore.js
+http://115.29.149.19:3000/framework/org.bcsphere.bluetooth/bluetoothapi.js
+http://115.29.149.19:3000/framework/org.bcsphere/bc.js
+js/index.js
+index.html
+device_detail.html
+desc_list.html
+char_detail.html
+operate_char.html
+css/index.css
+css/jquery.mobile.min.css
