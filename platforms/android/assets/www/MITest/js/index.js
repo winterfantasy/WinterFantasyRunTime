@@ -344,7 +344,7 @@ var app = {
 			var mi = app.device;
 			setTimeout(function(){
 				mi.services[2].characteristics[2].subscribe(function(){
-					alert(1);
+					//alert(1);
 				}
 			)},50);
 			setTimeout(function(){
@@ -365,14 +365,24 @@ var app = {
 			setTimeout(function(){
 				var time = 0;
 				mi.services[2].characteristics[13].subscribe(function(data){
-					if(time%3 == 0){
-						document.getElementById('x').innerHTML = data.value.getHexString();
-					}else if(time%3 == 1){
-						document.getElementById('y').innerHTML = data.value.getHexString();
-					}else if(time%3 == 2){
-						document.getElementById('z').innerHTML = data.value.getHexString();
+					if(data.value.getHexString().length < 25){
+						return;
 					}
-					time++;
+					/*if(time%3 == 0){
+						document.getElementById('x').innerHTML = data.value.getHexString().substr(4);
+					}else if(time%3 == 1){
+						document.getElementById('y').innerHTML = data.value.getHexString().substr(4);
+					}else if(time%3 == 2){
+						document.getElementById('z').innerHTML = data.value.getHexString().substr(4);
+					}
+					time++;*/
+					
+					document.getElementById('x').innerHTML = app.changeTog(data.value.value.slice(2,4));
+					document.getElementById('y').innerHTML = app.changeTog(data.value.value.slice(4,6));
+					document.getElementById('z').innerHTML = app.changeTog(data.value.value.slice(6,8));
+					/*document.getElementById('x').innerHTML = data.value.getHexString().substr(4,4);
+					document.getElementById('y').innerHTML = data.value.getHexString().substr(8,4);
+					document.getElementById('z').innerHTML = data.value.getHexString().substr(12,4);*/
 				}
 			)},850);
 			
@@ -386,6 +396,16 @@ var app = {
 		}
 		
 		app.hideLoader();
+	},
+	
+	changeTog : function(data){
+		//var raw = new Int16Array(data);
+		var dv = new DataView(data);
+		var raw = dv.getUint16(0,true);
+		raw = raw << 2;
+		dv.setUint16(0,raw,true);
+		var value = dv.getInt16(0,true);
+		return value/400;
 	},
 	
 	startListening : function(){
