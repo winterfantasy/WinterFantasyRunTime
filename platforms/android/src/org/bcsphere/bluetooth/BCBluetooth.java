@@ -191,25 +191,25 @@ public class BCBluetooth extends CordovaPlugin {
 				return true;
 			}
 			if(action.equals("startClassicalScan")){
-				Log.i(TAG,"startClassicalScan");
+				//Log.i(TAG,"startClassicalScan");
 				if(bluetoothAdapter.isEnabled()){
-					if(bluetoothAdapter.startDiscovery()){
+					/*if(bluetoothAdapter.startDiscovery()){
 						callbackContext.success();
 					}else{
 						callbackContext.error("start classical scan error!");
-					}
+					}*/
 				}else{
 					callbackContext.error("your bluetooth is not open!");
 				}
 			}
 			if(action.equals("stopClassicalScan")){
-				Log.i(TAG,"stopClassicalScan");
+				//Log.i(TAG,"stopClassicalScan");
 				if(bluetoothAdapter.isEnabled()){
-					if(bluetoothAdapter.cancelDiscovery()){
+					/*if(bluetoothAdapter.cancelDiscovery()){
 						callbackContext.success();
 					}else{
 						callbackContext.error("stop classical scan error!");
-					}
+					}*/
 				}else{
 					callbackContext.error("your bluetooth is not open!");
 				}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)http://g.wanh5.com/wx/fkdqt/ -->
+<html style="min-height: 153px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="x-key" content="b1c3e598638b4fdbcd29277a4ba7bf57">
+    <title>疯狂的拳头-火舞游戏</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Fists of Frenzy">
+    <link rel="stylesheet" href="./styles.css" type="text/css">
+    <script type="text/javascript" src="./js/phaser-arcade-physics.min.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/play-state.js"></script>
+    <script type="text/javascript" src="./js/hero.js"></script>
+    <script type="text/javascript" src="./js/enemy.js"></script>
+    <script type="text/javascript" src="./js/kills-counter.js"></script>
+    <script type="text/javascript" src="./js/rage.js"></script>
+    <script type="text/javascript" src="./js/game-over-state.js"></script>
+    <script type="text/javascript" src="./js/select-hero-state.js"></script>
+    <script type="text/javascript" src="./js/start-menu-state.js"></script>
+    <script type="text/javascript" src="./js/sponsor_stuff.js"></script>
+    <script type="text/javascript" src="./js/tutorial.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript">
+        ih5game.on('status.start', function () {
+            //console.log("游戏开始");
+        });
+        ih5game.on('status.stop', function (obj) {
+            //console.log("游戏结束，最终得分%o", obj.score);
+            "function" == typeof __ACT__CHECK__ && __ACT__CHECK__(obj.score);
+        });
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = document.referrer.slice(document.referrer.indexOf('?') + 1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+        function postScore(url) {
+        }
+
+        function goLeaderboard() {
+            try {
+                window.parent.goleaderboardPage();
+            }
+            catch (err) {
+
+            }
+        }
+    </script>
+
+<style type="text/css">#hw_splashscreen {position:fixed;left:0;top:0;z-index:9947483646;width:100%;height:100%;transition:opacity .6s ease;-webkit-transition:opacity .6s ease;-o-transition:opacity .6s ease;box-sizing:border-box;background: #01a8fe;background: -moz-linear-gradient(top,#01a8fe 0%,#5fdfff 100%);background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#01a8fe),color-stop(100%,#5fdfff));background: -webkit-linear-gradient(top,#01a8fe 0%,#5fdfff 100%);background: -o-linear-gradient(top,#01a8fe 0%,#5fdfff 100%);background: -ms-linear-gradient(top,#01a8fe 0%,#5fdfff 100%);background: linear-gradient(to bottom,#01a8fe 0%,#5fdfff 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01a8fe',endColorstr='#5fdfff',GradientType=0 );color:#fff;text-shadow:none;font-family:'Microsoft Yahei', Arial, 'Helvetica Neue', sans-serif;-webkit-font-smoothing: antialiased;}#hw_splashscreen .inner {position:relative;top:0;width:100%;height:100%;padding-top:80px;pointer-events:none;}#hw_splashscreen img {display:block;margin:10px auto 30px;height:80px;width:auto;}#hw_splashscreen p {font-size:16px;line-height:24px;text-align:center;margin:10px auto;padding:0 10px;}#hw_splashscreen .hw_info {font-size: 12px;color: rgba(255,255,255,.7);}#hw_splashscreen .progress {height:20px;overflow:hidden;margin: 5px 10px;background-color:#f5f5f5;border-radius:4px;box-sizing:border-box;box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);}#hw_splashscreen .progress .bar {float:left;min-width:20px;height:100%;line-height:20px;font-size:12px;text-align:center;color:#fff;box-sizing:border-box;background-color:#428bca;box-shadow:inset 0 -1px 0 rgba(0,0,0,.15);-webkit-box-shadow:inset 0 -1px 0 rgba(0,0,0,.15);transition:width .6s ease;-webkit-transition:width .6s ease;-o-transition:width .6s ease;}</style><iframe height="1" width="1" src="./疯狂的拳头-火舞游戏_files/sync.htm" style="display: none;"></iframe></head>
+<body onload="startFists();">
+    <div id="fistsoffrenzy-game" style="display: block; margin: 0px 0px 0px 632.478125px; padding: 0px; width: 101.04375px; height: 153px;"></div>
+    <div id="incorrect-orientation"></div>
+
+
+
+<div id="hw_splashscreen" style="opacity: 0; display: none;"><div class="inner"><p>请等待</p> <p class="hw_info">载入中...</p> <div class="progress" style="display:none;"><div class="bar">0%</div></div> </div></div></body></html>

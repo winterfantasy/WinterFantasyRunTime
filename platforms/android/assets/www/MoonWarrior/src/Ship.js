@@ -91,16 +91,39 @@ var Ship = cc.Sprite.extend({
         if ((MW.KEYS[cc.KEY.d] || MW.KEYS[cc.KEY.right]) && this.x <= winSize.width) {
             this.x += dt * this.speed;
         }
-        if(ax!=0||ay!=0||az!=0){
+		
+		if(this.x >= 0 && this.x <= winSize.width){
+			if(az < -0.05){
+				this.x -= dt * Math.abs(az) * 800;
+			}else if(az > 0.05){
+				this.x += dt * Math.abs(az) * 800;
+			}		
+		}else if(this.x < 0){
+			this.x = 0;
+		}else if(this.x > winSize.width){
+			this.x = winSize.width;
+		}
+
+		if(this.y >= 0 && this.y <= winSize.height){
+			if(ax < -0.05){
+				this.y += dt * Math.abs(ax) * 400;
+			}else if(ax > 0.05){
+				this.y -= dt * Math.abs(ax) * 1500;
+			}		
+		}else if(this.y < 0){
+			this.y = 0;
+		}else if(this.y > winSize.height){
+			this.y = winSize.height;
+		}
+
+        /*if(ax!=0||ay!=0||az!=0){
 	        this.x = this._fix_pos(this.x + ax * 100,
 	        	(0 + this.width / 2.0), (winSize.width - this.width / 2.0));
 	        this.y = this._fix_pos(this.y + ay * 100,
 	        	(0 + this.height / 2.0), (winSize.height - this.height / 2.0));
 	        console.log("ship.x:" + this.x + "ship.y:" + this.y);
-        }
-        ax=0;
-        ay=0;
-        az=0;
+        }*/
+        
         if (this.HP <= 0) {
             this.active = false;
             this.destroy();

@@ -79,8 +79,15 @@
  var ay=0;
  var az=0;
  function changeTog(data) {
-    var raw = new Int8Array(data);
-    return raw[0] / 64;
+    //var raw = new Int8Array(data);
+    //return raw[0] / 64;
+	
+	var dv = new DataView(data);
+	var raw = dv.getUint16(0,true);
+	raw = raw << 2;
+	dv.setUint16(0,raw,true);
+	var value = dv.getInt16(0,true);
+	return value/400;
 }
 document.addEventListener('bcready', function () {
         	BC.bluetooth.addEventListener("bluetoothstatechange", function () {
@@ -94,14 +101,14 @@ document.addEventListener('bcready', function () {
         	BC.bluetooth.addEventListener("newdevice", function (arg) {
         		var newDevice = arg.target;
         		newDevice.addEventListener("devicedisconnected", function (arg) {
-        			alert("SensorTag:" + arg.deviceAddress + " is disconnect,Click to reconnect.");
+        			alert("MI:" + arg.deviceAddress + " is disconnect,Click to reconnect.");
         			newDevice.connect(function (arg) {
-        				alert("SensorTag:" + arg.deviceAddress + " is reconnected successfully.");
+        				alert("MI:" + arg.deviceAddress + " is reconnected successfully.");
         			}, function () {
         				newDevice.dispatchEvent("devicedisconnected");
         			});
         		});
-        		if (newDevice.deviceAddress == "BC:6A:29:AB:7C:DE") {
+        		/*if (newDevice.deviceAddress == "BC:6A:29:AB:7C:DE") {
         			sensorTag = newDevice;
         			BC.Bluetooth.StopScan();
         			newDevice.connect(function () {
@@ -131,7 +138,62 @@ document.addEventListener('bcready', function () {
         			}, function () {
         				alert("connect the SensorTag BC:6A:29:AB:7C:DE error");
         			});
-        		}
+        		}*/
+				
+				if (newDevice.deviceAddress == "88:0F:10:4C:21:9B") {
+        			BC.Bluetooth.StopScan();
+        			newDevice.connect(function () {
+        				newDevice.prepare(function () {
+							setTimeout(function(){
+								newDevice.services[2].characteristics[2].subscribe(function(){
+									//alert(1);
+								}
+							)},50);
+							setTimeout(function(){
+								newDevice.services[2].characteristics[5].subscribe(function(){
+									alert(2);
+								}
+							)},250);			
+							setTimeout(function(){
+								newDevice.services[2].characteristics[6].subscribe(function(){
+									alert(3);
+								}
+							)},450);
+							setTimeout(function(){
+								newDevice.services[2].characteristics[11].subscribe(function(){
+									alert(4);
+								}
+							)},650);
+							setTimeout(function(){
+								var time = 0;
+								newDevice.services[2].characteristics[13].subscribe(function(data){
+									if(data.value.getHexString().length < 25){
+										return;
+									}
+									ax = changeTog(data.value.value.slice(2,4))/10;
+									ay = changeTog(data.value.value.slice(4,6))/10;
+									az = changeTog(data.value.value.slice(6,8))/10;
+								}
+							)},850);
+							
+							setTimeout(function(){
+								newDevice.services[2].characteristics[3].write("Hex","D168C4280118AA420036383339363035323900AF",function(){
+									newDevice.services[2].characteristics[4].write("Hex","1201",function(){
+										//alert("start listening success.");
+									},function(){
+										alert("write error!!!");
+									})
+								},function(){
+									alert("write error!!!");
+								}
+							)},1050);
+						}, function () {
+        					alert("read MI ATT table error!");
+        				});
+        			}, function () {
+        				alert("connect MI error");
+        			});
+				}
         	});
 
         	if (!BC.bluetooth.isopen) {
