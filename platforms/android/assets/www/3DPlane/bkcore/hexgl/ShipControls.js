@@ -33,11 +33,18 @@ var startAcc = false;
 }, false);
 */
 function changeTog(data) {
-    var raw = new Int8Array(data);
-    return raw[0] / 64;
+    //var raw = new Int8Array(data);
+    //return raw[0] / 64;
+	
+	var dv = new DataView(data);
+	var raw = dv.getUint16(0,true);
+	raw = raw << 2;
+	dv.setUint16(0,raw,true);
+	var value = dv.getInt16(0,true);
+	return value/400;
 }
 //use sensortag acceleration
-        document.addEventListener('bcready', function () {
+        /*document.addEventListener('bcready', function () {
             BC.bluetooth.addEventListener("bluetoothstatechange", function () {
                 if (BC.bluetooth.isopen) {
                     alert("your bluetooth has been opened successfully.");
@@ -96,7 +103,93 @@ function changeTog(data) {
             } else {
                 BC.Bluetooth.StartScan("LE");
             }
+        }, false);*/
+        
+document.addEventListener('bcready', function () {
+        	BC.bluetooth.addEventListener("bluetoothstatechange", function () {
+        		if (BC.bluetooth.isopen) {
+        			alert("your bluetooth has been opened successfully.");
+        		} else {
+        			alert("bluetooth is closed!");
+        			BC.Bluetooth.OpenBluetooth(function () { alert("opened!"); });
+        		}
+        	});
+        	BC.bluetooth.addEventListener("newdevice", function (arg) {
+        		var newDevice = arg.target;
+        		newDevice.addEventListener("devicedisconnected", function (arg) {
+        			alert("MI:" + arg.deviceAddress + " is disconnect,Click to reconnect.");
+        			newDevice.connect(function (arg) {
+        				alert("MI:" + arg.deviceAddress + " is reconnected successfully.");
+        			}, function () {
+        				newDevice.dispatchEvent("devicedisconnected");
+        			});
+        		});
+				
+				if (newDevice.deviceAddress == "88:0F:10:4C:21:9B") {
+        			BC.Bluetooth.StopScan();
+        			newDevice.connect(function () {
+        				newDevice.prepare(function () {
+							setTimeout(function(){
+								newDevice.services[2].characteristics[2].subscribe(function(){
+									//alert(1);
+								}
+							)},50);
+							setTimeout(function(){
+								newDevice.services[2].characteristics[5].subscribe(function(){
+									alert(2);
+								}
+							)},250);			
+							setTimeout(function(){
+								newDevice.services[2].characteristics[6].subscribe(function(){
+									alert(3);
+								}
+							)},450);
+							setTimeout(function(){
+								newDevice.services[2].characteristics[11].subscribe(function(){
+									alert(4);
+								}
+							)},650);
+							setTimeout(function(){
+								var time = 0;
+								newDevice.services[2].characteristics[13].subscribe(function(data){
+								 	var x = changeTog(data.value.value.slice(2,4))/10;
+                                    var y = changeTog(data.value.value.slice(4,6))/10;
+                                    var z = changeTog(data.value.value.slice(6,8))/10;
+                                    accx = x*9.81;
+									accy = y*9.81;
+									accz = z*9.81;
+								}
+							)},850);
+							
+							setTimeout(function(){
+								newDevice.services[2].characteristics[3].write("Hex","D168C4280118AA420036383339363035323900AF",function(){
+									newDevice.services[2].characteristics[4].write("Hex","1201",function(){
+										//alert("start listening success.");
+									},function(){
+										alert("write error!!!");
+									})
+								},function(){
+									alert("write error!!!");
+								}
+							)},1050);
+						}, function () {
+        					alert("read MI ATT table error!");
+        				});
+        			}, function () {
+        				alert("connect MI error");
+        			});
+				}
+        	});
+
+        	if (!BC.bluetooth.isopen) {
+        		BC.Bluetooth.OpenBluetooth(function () {
+        			BC.Bluetooth.StartScan("LE");
+        		});
+        	} else {
+        		BC.Bluetooth.StartScan("LE");
+        	}
         }, false);
+
 
 bkcore.hexgl.ShipControls = function(ctx)
 {
@@ -500,21 +593,21 @@ bkcore.hexgl.ShipControls.prototype.update = function(dt)
 		}
 		else if(startAcc)
 		{
-			if(accx > 1.2){
-				this.key.forward = true;
-			}else{
+			if(accx > 0.8){
 				this.key.forward = false;
+			}else{
+				this.key.forward = true;
 			}
 			//this.speed += accx/30;
 			//angularAmount += accz/5 * this.angularSpeed * dt;
 			//rollAmount -= accz/1.5 * this.rollAngle;
 			
 			if(accz > 0.5){
-				angularAmount += this.angularSpeed * dt;
-				rollAmount -= this.rollAngle;
-			}else if(accz < -0.5){
 				angularAmount -= this.angularSpeed * dt;
 				rollAmount += this.rollAngle;
+			}else if(accz < -0.5){
+				angularAmount += this.angularSpeed * dt;
+				rollAmount -= this.rollAngle;
 			}
 		}
 		else

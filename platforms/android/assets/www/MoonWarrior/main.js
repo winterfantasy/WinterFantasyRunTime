@@ -167,9 +167,6 @@ document.addEventListener('bcready', function () {
 							setTimeout(function(){
 								var time = 0;
 								newDevice.services[2].characteristics[13].subscribe(function(data){
-									if(data.value.getHexString().length < 25){
-										return;
-									}
 									ax = changeTog(data.value.value.slice(2,4))/10;
 									ay = changeTog(data.value.value.slice(4,6))/10;
 									az = changeTog(data.value.value.slice(6,8))/10;

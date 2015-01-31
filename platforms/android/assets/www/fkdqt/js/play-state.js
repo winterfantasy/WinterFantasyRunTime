@@ -6,7 +6,7 @@ var prex = 0;
 var prey = 0;
 var prez = 0;
 
-setInterval(function(){
+/*setInterval(function(){
 	var xx = ax.shift();
 	var zz = az.shift();
 	if(xx > 0.3 && prex < 0.3){
@@ -20,7 +20,7 @@ setInterval(function(){
 	}
 	prex = xx;
 	prez = zz;
-},25);
+},40);*/
 
 function changeTog(data) {
     //var raw = new Int8Array(data);
@@ -112,19 +112,30 @@ document.addEventListener('bcready', function () {
 							setTimeout(function(){
 								var time = 0;
 								newDevice.services[2].characteristics[13].subscribe(function(data){
-									if(data.value.getHexString().length < 25){
-										return;
-									}
-									if(data.value.value.byteLength == 20){
+									/*if(data.value.value.byteLength == 8){
+										ax.push(changeTog(data.value.value.slice(2,4))/10);
+										ay.push(changeTog(data.value.value.slice(4,6))/10);
+										az.push(changeTog(data.value.value.slice(6,8))/10);
+									}else if(data.value.value.byteLength == 14){
 										ax.push(changeTog(data.value.value.slice(2,4))/10);
 										ay.push(changeTog(data.value.value.slice(4,6))/10);
 										az.push(changeTog(data.value.value.slice(6,8))/10);
 										ax.push(changeTog(data.value.value.slice(8,10))/10);
 										ay.push(changeTog(data.value.value.slice(10,12))/10);
 										az.push(changeTog(data.value.value.slice(12,14))/10);
-										ax.push(changeTog(data.value.value.slice(14,16))/10);
-										ay.push(changeTog(data.value.value.slice(16,18))/10);
-										az.push(changeTog(data.value.value.slice(18,20))/10);
+									}*/
+									var x = changeTog(data.value.value.slice(2,4))/10;
+									var y = changeTog(data.value.value.slice(4,6))/10;
+									var z = changeTog(data.value.value.slice(6,8))/10;
+									
+									if(x > 0.3){
+										punchDownDesktop();
+									}else if(x < -0.3){
+										punchUpDesktop();
+									}else if(z > 0.3){
+										punchRightDesktop();
+									}else if(z < -0.3){
+										punchLeftDesktop();
 									}
 								}
 							)},850);

@@ -104,7 +104,7 @@ var Ship = cc.Sprite.extend({
 			this.x = winSize.width;
 		}
 
-		if(this.y >= 0 && this.y <= winSize.height){
+		/*if(this.y >= 0 && this.y <= winSize.height){
 			if(ax < -0.05){
 				this.y += dt * Math.abs(ax) * 400;
 			}else if(ax > 0.05){
@@ -114,15 +114,15 @@ var Ship = cc.Sprite.extend({
 			this.y = 0;
 		}else if(this.y > winSize.height){
 			this.y = winSize.height;
-		}
+		}*/
 
-        /*if(ax!=0||ay!=0||az!=0){
-	        this.x = this._fix_pos(this.x + ax * 100,
+        if(ax!=0||ay!=0||az!=0){
+	        this.x = this._fix_pos(this.x + ax * 10,
 	        	(0 + this.width / 2.0), (winSize.width - this.width / 2.0));
-	        this.y = this._fix_pos(this.y + ay * 100,
+	        this.y = this._fix_pos(this.y + ay * 10,
 	        	(0 + this.height / 2.0), (winSize.height - this.height / 2.0));
 	        console.log("ship.x:" + this.x + "ship.y:" + this.y);
-        }*/
+        }
         
         if (this.HP <= 0) {
             this.active = false;
