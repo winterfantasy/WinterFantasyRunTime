@@ -156,6 +156,7 @@ public class BluetoothG43plus implements IBluetooth{
 			Tools.addProperty(obj, Tools.DEVICE_ADDRESS, devices.get(i).getAddress());
 			Tools.addProperty(obj, Tools.DEVICE_NAME, devices.get(i).getName());
 			ary.put(obj);
+			connectedDevice.put(devices.get(i).getAddress(), true);
 		}
 		callbackContext.success(ary);
 	}
@@ -247,14 +248,19 @@ public class BluetoothG43plus implements IBluetooth{
 	public void getDeviceAllData(JSONArray json, CallbackContext callbackContext) {
 		Log.i(TAG, "getDeviceAllData");
 		String deviceAddress = Tools.getData(json, Tools.DEVICE_ADDRESS);
-		if (connectedDevice.get(deviceAddress) == null) {
+		/*if (connectedDevice.get(deviceAddress) == null) {
 			Tools.sendErrorMsg(callbackContext);
 			return;
-		}
+		}*/
 		getDeviceAllDataCC.put(deviceAddress, callbackContext);
+		
+		
+		if(mBluetoothGatts.get(deviceAddress) == null){
+			BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(deviceAddress);
+			mBluetoothGatts.put(deviceAddress, device.connectGatt(mContext, false, mGattCallback));
+		}
 		mBluetoothGatts.get(deviceAddress).discoverServices();
 	}
-
 
 	@Override
 	public void removeServices(JSONArray json, CallbackContext callbackContext) {
