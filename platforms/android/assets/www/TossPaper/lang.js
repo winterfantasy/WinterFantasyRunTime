@@ -1,7 +1,7 @@
 window.languages = {
 		
 	"ch": {
-		"startGame": "开始游戏",
+		"startGame": "",
 		"selectLevel": "选择难度",
 		"easy": "简单",
 		"medium": "中等",
