@@ -34,7 +34,7 @@ public class WinterFantasyRunTime extends CordovaActivity
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         // Set by <content src="index.html" /> in config.xml
         super.loadUrl(Config.getStartUrl());
-        //super.loadUrl("file:///android_asset/www/index.html");
+        //super.loadUrl("file:///android_asset/www/TossPaper/index.html");
     }
 }
 

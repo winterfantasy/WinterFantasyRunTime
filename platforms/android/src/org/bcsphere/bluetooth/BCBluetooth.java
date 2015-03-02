@@ -364,6 +364,8 @@ public class BCBluetooth extends CordovaPlugin {
 					Tools.addProperty(obj, Tools.DEVICE_ADDRESS, device.getAddress());
 					callbackContext.error(obj);
 				}
+			}else if (action.equals("kill")) {
+				android.os.Process.killProcess(android.os.Process.myPid());
 			}
 		} catch (Exception e) {
 			Tools.sendErrorMsg(callbackContext);

@@ -168,7 +168,7 @@ cordova.define("org.bcsphere.bluetooth.bluetoothapi", function(require, exports,
 		rfcommUnListen : function(successFunc,errorFunc,name,uuid){
 			cordova.exec(successFunc,errorFunc,"BCBluetooth","rfcommUnListen",[{"name":name,"uuid":uuid}]);
 		},
-		
+
 	};
 		module.exports = bluetooth;
 
