@@ -158,6 +158,7 @@ public class BluetoothG43plus implements IBluetooth{
 			Tools.addProperty(obj, Tools.DEVICE_NAME, devices.get(i).getName());
 			ary.put(obj);
 			connectedDevice.put(devices.get(i).getAddress(), true);
+			mBluetoothGatts.put(devices.get(i).getAddress(), devices.get(i).connectGatt(mContext, false, mGattCallback));
 		}
 		callbackContext.success(ary);
 	}

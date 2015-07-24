@@ -105,7 +105,7 @@ function changeTog(data) {
             }
         }, false);*/
         
-document.addEventListener('bcready', function () {
+/*document.addEventListener('bcready', function () {
         	BC.bluetooth.addEventListener("bluetoothstatechange", function () {
         		if (BC.bluetooth.isopen) {
         			alert("your bluetooth has been opened successfully.");
@@ -189,8 +189,27 @@ document.addEventListener('bcready', function () {
         		BC.Bluetooth.StartScan("LE");
         	}
         }, false);
+*/
 
-
+document.addEventListener('deviceready',function(){
+		navigator.accelerometer.watchAcceleration(
+	    // success handler
+	    function (evt) {
+			accx = evt.x;
+			accy = evt.y;
+			accz = evt.z;
+		},
+	
+	    // error handler
+	    function (e) {
+	      alert("accel fail (" + e.name + ": " + e.message + ")");
+	    },
+	
+	    // options: update every 100ms
+	    { frequency: 33 }
+	  );
+});
+	
 bkcore.hexgl.ShipControls = function(ctx)
 {
 	var self = this;
@@ -593,19 +612,19 @@ bkcore.hexgl.ShipControls.prototype.update = function(dt)
 		}
 		else if(startAcc)
 		{
-			if(accx > 0.8){
+			/*if(accx > 8){
 				this.key.forward = false;
 			}else{
 				this.key.forward = true;
 			}
 			//this.speed += accx/30;
 			//angularAmount += accz/5 * this.angularSpeed * dt;
-			//rollAmount -= accz/1.5 * this.rollAngle;
-			
-			if(accz > 0.5){
+			//rollAmount -= accz/1.5 * this.rollAngle;*/
+			this.key.forward = true;
+			if(accy > 3){
 				angularAmount -= this.angularSpeed * dt;
 				rollAmount += this.rollAngle;
-			}else if(accz < -0.5){
+			}else if(accy < -3){
 				angularAmount += this.angularSpeed * dt;
 				rollAmount -= this.rollAngle;
 			}

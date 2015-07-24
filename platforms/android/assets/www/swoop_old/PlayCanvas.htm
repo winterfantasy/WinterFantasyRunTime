@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)http://apps.playcanvas.com.s3-website-eu-west-1.amazonaws.com/playcanvas/swooop/swooop/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <style type="text/css">
+        html {
+            height: 100%;
+            background-color: #1d292c;
+        }
+        body {
+            margin: 0;
+            max-height: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #1d292c;
+            font-family: Helvetica, arial, sans-serif;
+        }
+
+        #application-canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        #application-canvas.fill-mode-KEEP_ASPECT {
+            width: 100%;
+            height: auto;
+            margin: 0;
+        }
+        #application-canvas.fill-mode-FILL_WINDOW {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        /*canvas {
+            display: block;
+        }*/
+        canvas:focus {
+            outline: none;
+        }
+        #application-splash {
+            position: absolute;
+            top: 40%;
+            width: 30%;
+            left: 35%;
+        }
+        #application-splash img {
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            #application-splash {
+                width: 20%;
+                left: 40%;
+            }
+        }
+        @media (min-width: 992px) {
+            #application-splash {
+                width: 10%;
+                left: 45%;
+            }
+        }
+    @media screen and (min-aspect-ratio: 1280/720) {    #application-canvas.fill-mode-KEEP_ASPECT {        width: auto;        height: 100%;        margin: 0 auto;    }}</style>
+    <title>PlayCanvas</title>
+    <script src="./PlayCanvas_files/playcanvas-0.159.4.min.js"></script>
+
+    <script>
+        var options = {};
+        (function (options) {
+            var uri = new pc.URI(window.location.href);
+            var query = uri.getQuery();
+
+            pc.config = pc.config || {};
+            pc.config['frame'] = {
+                url: window.location.href
+            };
+            pc.extend(options, {
+                useApi: false,
+                repository: pc.string.toBool(query.repository),
+                scriptPrefix: "",
+                displayLoader: (query.loader && query.loader === 'debug')
+            });
+        }(options));
+    </script>
+
+    <script src="./PlayCanvas_files/data.js"></script>
+<script src="./PlayCanvas_files/game.js"></script><script src="./PlayCanvas_files/tween.js"></script><script src="./PlayCanvas_files/physics.js"></script><script src="./PlayCanvas_files/input.js"></script><script src="./PlayCanvas_files/patterns.js"></script><script src="./PlayCanvas_files/utils.js"></script><script src="./PlayCanvas_files/storage.js"></script><script src="./PlayCanvas_files/batch_tween_scale.js"></script><script src="./PlayCanvas_files/player.js"></script><script src="./PlayCanvas_files/particle_emitter.js"></script><script src="./PlayCanvas_files/ribbon.js"></script><script src="./PlayCanvas_files/audio.js"></script><script src="./PlayCanvas_files/collectible.js"></script><script src="./PlayCanvas_files/obstacle.js"></script><script src="./PlayCanvas_files/bonus_effect.js"></script><script src="./PlayCanvas_files/scroll_texture.js"></script><script src="./PlayCanvas_files/rotate.js"></script><script src="./PlayCanvas_files/animated_object.js"></script><script src="./PlayCanvas_files/particles.js"></script><script src="./PlayCanvas_files/ui.js"></script><script src="./PlayCanvas_files/sprite.js"></script><script src="./PlayCanvas_files/ui_tweener.js"></script><script src="./PlayCanvas_files/ui_ingame.js"></script><script src="./PlayCanvas_files/font_renderer.js"></script><script src="./PlayCanvas_files/progressbar.js"></script><script src="./PlayCanvas_files/ui_initial.js"></script><script src="./PlayCanvas_files/ui_gameover.js"></script><script src="./PlayCanvas_files/ui_paused.js"></script><script src="./PlayCanvas_files/block_pattern.js"></script><script src="./PlayCanvas_files/minheight.js"></script><script src="./PlayCanvas_files/camera.js"></script><script src="./PlayCanvas_files/shake.js"></script><script src="./PlayCanvas_files/splash_plane.js"></script><script src="./PlayCanvas_files/pattern.js"></script></head>
+<body><canvas id="application-canvas" tabindex="0" class="fill-mode-KEEP_ASPECT" width="464" height="261" style="visibility: visible; -webkit-user-select: none;"></canvas>
+    
+
+    <script src="./PlayCanvas_files/bootstrap.js"></script>
+
+    <script>
+        window.addEventListener('message', function (e) {
+            if (e.origin === 'http://apps.playcanvas.com') {
+                pc.config['frame'] = JSON.parse(e.data);
+            }
+        }, false);
+        // Tell parent window w
+        window.top.postMessage('frame:listening', '*');
+
+
+        var progress = new pc.ProgressBar(document.getElementById('application-progress'), 2);
+        progress.attach(document.body);
+
+        var bootstrap = new pc.Bootstrap(options);
+        bootstrap.on('progress', function (v) {
+            if (v >= progress.value) {
+                progress.value = v;
+            }
+        });
+        bootstrap.on('loaded', function () {
+            var splash = document.getElementById('application-splash');
+            splash.parentNode.removeChild(splash);
+        });
+        bootstrap.start("5ae86c85-1457-4505-8d2c-d3b712712a21");
+    </script>
+
+
+</body></html>
